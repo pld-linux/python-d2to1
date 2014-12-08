@@ -23,10 +23,16 @@ BuildRequires:	rpmbuild(macros) >= 1.219
 %if %{with python2}
 BuildRequires:	python-modules
 BuildRequires:	python-setuptools
+%if %{with tests}
+BuildRequires:	python-nose
+%endif
 %endif
 %if %{with python3}
 BuildRequires:	python3-modules
 BuildRequires:	python3-setuptools
+%if %{with tests}
+BuildRequires:	python3-nose
+%endif
 %endif
 Requires:	python-setuptools
 BuildArch:	noarch
