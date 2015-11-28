@@ -12,7 +12,7 @@
 Summary:	Allows using distutils2-like setup.cfg files with setup.py
 Name:		python-%{module}
 Version:	0.2.11
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries/Python
 Source0:	http://pypi.python.org/packages/source/d/d2to1/%{module}-%{version}.tar.gz
