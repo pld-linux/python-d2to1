@@ -19,7 +19,7 @@ Source0:	http://pypi.python.org/packages/source/d/d2to1/%{module}-%{version}.tar
 # Source0-md5:	81addef3dde584ab89b35ada8177c0d0
 URL:		http://pypi.python.org/pypi/d2to1
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.219
+BuildRequires:	rpmbuild(macros) >= 1.710
 %if %{with python2}
 BuildRequires:	python-modules
 BuildRequires:	python-setuptools
