@@ -1,34 +1,33 @@
-# TODO
-# - extern/six -> python-six?
-
+# TODO: extern/six -> python-six?
 #
 # Conditional build:
-%bcond_without	doc		# don't build doc
-%bcond_without	tests	# do not perform "make test"
+%bcond_without	tests	# test target
 %bcond_without	python2 # CPython 2.x module
-%bcond_with	python3 # CPython 3.x module
+%bcond_without	python3 # CPython 3.x module
 
 %define 	module	d2to1
-Summary:	Allows using distutils2-like setup.cfg files with setup.py
+Summary:	Allow using distutils2-like setup.cfg files with setup.py (Python 2 version)
+Summary(pl.UTF-8):	Możliwość używania setup.cfg w stylu distutils2 z setup.py (wersja dla Pythona 2)
 Name:		python-%{module}
-Version:	0.2.11
-Release:	2
+Version:	0.2.12.post1
+Release:	1
 License:	BSD
 Group:		Libraries/Python
-Source0:	http://pypi.python.org/packages/source/d/d2to1/%{module}-%{version}.tar.gz
-# Source0-md5:	81addef3dde584ab89b35ada8177c0d0
-URL:		http://pypi.python.org/pypi/d2to1
+#Source0Download: URL: https://pypi.python.org/pypi/d2to1
+Source0:	https://pypi.python.org/packages/source/d/d2to1/%{module}-%{version}.tar.gz
+# Source0-md5:	1ba7e64ead23cbf104993122f0871030
+URL:		https://pypi.python.org/pypi/d2to1
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.710
 %if %{with python2}
-BuildRequires:	python-modules
+BuildRequires:	python-modules >= 1:2.5
 BuildRequires:	python-setuptools
 %if %{with tests}
 BuildRequires:	python-nose
 %endif
 %endif
 %if %{with python3}
-BuildRequires:	python3-modules
+BuildRequires:	python3-modules >= 1:3.2
 BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-nose
@@ -45,8 +44,17 @@ providing a distutils2-formatted setup.cfg file containing all of a
 package's metadata, and a very minimal setup.py which will slurp its
 arguments from the setup.cfg.
 
+%description -l pl.UTF-8
+d2to1 pozwala na używanie plików setup.cfg w stylu distutils2 jako
+metadanych pakietu ze skryptem setup.py typowym dla
+distribute/setuptools. Działa poprzez dostarczenie pliku setup.cfg w
+formacie distutils2, zawierającego wszystkie metadane pakietu oraz
+minimalnego pliku setup.py, który pobiera wszystkie argumenty z pliku
+setup.cfg.
+
 %package -n python3-d2to1
-Summary:	Allows using distutils2-like setup.cfg files with setup.py
+Summary:	Allow using distutils2-like setup.cfg files with setup.py (Python 3 version)
+Summary(pl.UTF-8):	Możliwość używania setup.cfg w stylu distutils2 z setup.py (wersja dla Pythona 3)
 Group:		Libraries/Python
 Requires:	python3-setuptools
 
@@ -57,10 +65,18 @@ providing a distutils2-formatted setup.cfg file containing all of a
 package's metadata, and a very minimal setup.py which will slurp its
 arguments from the setup.cfg.
 
+%description -n python3-d2to1 -l pl.UTF-8
+d2to1 pozwala na używanie plików setup.cfg w stylu distutils2 jako
+metadanych pakietu ze skryptem setup.py typowym dla
+distribute/setuptools. Działa poprzez dostarczenie pliku setup.cfg w
+formacie distutils2, zawierającego wszystkie metadane pakietu oraz
+minimalnego pliku setup.py, który pobiera wszystkie argumenty z pliku
+setup.cfg.
+
 %prep
 %setup -q -n %{module}-%{version}
 
-rm -r %{module}.egg-info
+%{__rm} -r %{module}.egg-info
 
 %build
 %if %{with python2}
@@ -90,7 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files
 %defattr(644,root,root,755)
-%doc CHANGES.rst LICENSE README.rst
+%doc CHANGES.rst CONTRIBUTORS LICENSE README.rst
 %dir %{py_sitescriptdir}/d2to1
 %{py_sitescriptdir}/d2to1/*.py[co]
 %dir %{py_sitescriptdir}/d2to1/extern
@@ -102,6 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python3}
 %files -n python3-d2to1
 %defattr(644,root,root,755)
-%doc CHANGES.rst LICENSE README.rst
-%{py3_sitescriptdir}/*
+%doc CHANGES.rst CONTRIBUTORS LICENSE README.rst
+%{py3_sitescriptdir}/d2to1
+%{py3_sitescriptdir}/d2to1-%{version}-py*.egg-info
 %endif
