@@ -10,7 +10,7 @@ Summary:	Allow using distutils2-like setup.cfg files with setup.py (Python 2 ver
 Summary(pl.UTF-8):	Możliwość używania setup.cfg w stylu distutils2 z setup.py (wersja dla Pythona 2)
 Name:		python-%{module}
 Version:	0.2.12.post1
-Release:	3
+Release:	4
 License:	BSD
 Group:		Libraries/Python
 #Source0Download: URL: https://pypi.python.org/pypi/d2to1
