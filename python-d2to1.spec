@@ -1,7 +1,7 @@
 # TODO: extern/six -> python-six?
 #
 # Conditional build:
-%bcond_without	tests	# test target
+%bcond_with	tests	# test target (no tests in release tarball)
 %bcond_without	python2 # CPython 2.x module
 %bcond_without	python3 # CPython 3.x module
 
@@ -13,12 +13,10 @@ Version:	0.2.12.post1
 Release:	4
 License:	BSD
 Group:		Libraries/Python
-#Source0Download: URL: https://pypi.python.org/pypi/d2to1
-Source0:	https://pypi.python.org/packages/source/d/d2to1/%{module}-%{version}.tar.gz
+#Source0Download: URL: https://pypi.org/simple/d2to1/
+Source0:	https://files.pythonhosted.org/packages/source/d/d2to1/%{module}-%{version}.tar.gz
 # Source0-md5:	1ba7e64ead23cbf104993122f0871030
-URL:		https://pypi.python.org/pypi/d2to1
-BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.710
+URL:		https://pypi.org/project/d2to1/
 %if %{with python2}
 BuildRequires:	python-modules >= 1:2.5
 BuildRequires:	python-setuptools
@@ -33,7 +31,9 @@ BuildRequires:	python3-setuptools
 BuildRequires:	python3-nose
 %endif
 %endif
-Requires:	python-setuptools
+BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.714
+Requires:	python-modules >= 1:2.5
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -56,7 +56,7 @@ setup.cfg.
 Summary:	Allow using distutils2-like setup.cfg files with setup.py (Python 3 version)
 Summary(pl.UTF-8):	Możliwość używania setup.cfg w stylu distutils2 z setup.py (wersja dla Pythona 3)
 Group:		Libraries/Python
-Requires:	python3-setuptools
+Requires:	python3-modules >= 1:3.2
 
 %description -n python3-d2to1
 d2to1 allows using distutils2-like setup.cfg files for a package's
